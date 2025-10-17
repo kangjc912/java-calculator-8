@@ -26,17 +26,39 @@ public class StrCalculator {
 
         }
 
+        //구분자 기준으로 split
         String[] WODelimiter = text.split(delimiter);
 
-
+        //정답변수 초기화
         int sum = 0;
-        for (String string : WODelimiter) {
-            if (!string.isEmpty()) {
-                sum += Integer.parseInt(string);
+
+        //유효한 숫자인지 확인 후 sum에 합하기
+        for (String str : WODelimiter) {
+            if (!str.isEmpty()) {
+                int num = Check(str);
+                sum += num;
             }
         }
 
         return sum;
+    }
+
+
+    //예외처리 함수
+    private int Check(String str) {
+        int num;
+        try {
+            num = Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            //잘못된 구분자나, 숫자가 아닌 문자가 입력됐을 때 처리
+            throw new IllegalArgumentException("잘못된 구분자가 포함되어 있거나 숫자가 아닌 값이 있습니다.");
+        }
+
+        //음수가 입력됐을 때 처리
+        if (num < 0) {
+            throw new IllegalArgumentException("음수는 입력할 수 없습니다.");
+        }
+        return num;
     }
 
 
