@@ -1,5 +1,5 @@
 package calculator;
-//import java.lang.String;
+import java.lang.String;
 
 public class StrCalculator {
     //빈 문자열 처리
@@ -12,6 +12,16 @@ public class StrCalculator {
         if (isBlank(s)) {
             return 0;
         }
-        return 0;
+        // ,: 구분자
+        String[] WODelimiter = s.split("[,:]");
+
+        int sum = 0;
+        for (String string : WODelimiter) {
+            sum += Integer.parseInt(string);
+        }
+
+        return sum;
     }
+
+
 }
