@@ -1,11 +1,8 @@
 package calculator;
 
 public class StrCalculator {
-    //빈 문자열 처리
-    private boolean isBlank(String s) {
-        return s  == null || s.isEmpty();
-    }
 
+    //정답 도출 함수
     public int add(String s) {
 
         //빈 문자열 확인
@@ -13,34 +10,50 @@ public class StrCalculator {
             return 0;
         }
 
-        //변수 초기화
+        String[] numbers = splitText(s);
+
+        return sumNumbers(numbers);
+    }
+
+    //빈 문자열 처리
+    private boolean isBlank(String s) {
+        return s == null || s.isEmpty();
+    }
+
+
+    //구분자 처리
+    private String[] splitText(String s) {
         String delimiter = "[,:]";
         String text = s;
 
-
-        //커스텀 구분자 처리
-        if(s.startsWith("//")){
-            int Index = s.indexOf("n")+1;
+        // 커스텀 구분자 처리
+        if (s.startsWith("//")) {
+            int index = s.indexOf("n") + 1;
             delimiter = s.substring(2, 3);
-            text = s.substring(Index);
-
+            text = s.substring(index);
         }
 
-        //구분자 기준으로 split
-        String[] WODelimiter = text.split(delimiter);
+        return text.split(delimiter);
+    }
 
-        //정답변수 초기화
+    //최종 정답 덧셈
+    private int sumNumbers(String[] numbers) {
         int sum = 0;
 
-        //유효한 숫자인지 확인 후 sum에 합하기
-        for (String str : WODelimiter) {
-            if (!str.isEmpty()) {
-                int num = Check(str);
-                sum += num;
-            }
+        //반복문
+        for (String str : numbers) {
+            sum += toInt(str);
         }
-
         return sum;
+    }
+
+    //문자열 유효성 검사
+    private int toInt(String str) {
+        //빈 문자열 처리
+        if (str.isEmpty()) {
+            return 0;
+        }
+        return Check(str);
     }
 
 

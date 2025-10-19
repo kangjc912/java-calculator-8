@@ -10,7 +10,7 @@ public class Application {
         String s = Console.readLine();
         StrCalculator calculator = new StrCalculator();
         int result = calculator.add(s);
-        System.out.println(result);
+        System.out.println("결과 : " + result);
     }
 }
 
